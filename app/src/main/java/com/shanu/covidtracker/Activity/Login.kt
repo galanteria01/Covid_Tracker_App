@@ -1,12 +1,12 @@
-package com.shanu.covidtracker
+package com.shanu.covidtracker.Activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.shanu.covidtracker.R
 import kotlinx.android.synthetic.main.activity_login.*
 
 class Login : AppCompatActivity() {
@@ -63,7 +63,7 @@ class Login : AppCompatActivity() {
     }
 
     fun updateUI(user:FirebaseUser?){
-        val intent = Intent(this,MainActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         intent.putExtra("user",user)
         startActivity(intent)
         finish()
