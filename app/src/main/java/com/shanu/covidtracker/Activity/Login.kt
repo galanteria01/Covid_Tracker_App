@@ -21,7 +21,6 @@ class Login : AppCompatActivity() {
         loginButton.setOnClickListener {
             loginWithDetails(textEmail.text.toString(),textPassword.text.toString())
         }
-
     }
 
     override fun onStart() {
