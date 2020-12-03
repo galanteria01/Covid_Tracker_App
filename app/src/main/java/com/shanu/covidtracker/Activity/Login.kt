@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class Login : AppCompatActivity() {
     private var mAuth: FirebaseAuth? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -29,7 +30,6 @@ class Login : AppCompatActivity() {
         if(currentUser!=null){
             updateUI(currentUser)
         }
-
     }
 
     fun signupWithDetails(email:String,password:String){
