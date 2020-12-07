@@ -21,6 +21,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
+        // Testing
+
+
         // Declaring the fragments
         val homeFragment = HomeFragment()
         val listFragment = ListFragment()
