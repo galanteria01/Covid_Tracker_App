@@ -1,8 +1,11 @@
 package com.shanu.covidtracker.data.repository
 
-import com.shanu.covidtracker.data.api.ApiHelper
+import com.shanu.covidtracker.data.api.RetrofitInstance
+import com.shanu.covidtracker.data.model.CountryData
+import retrofit2.Response
 
-
-class Repository(private val apiHelper: ApiHelper) {
-    suspend fun getCountries() = apiHelper.getCountries()
+class Repository {
+    suspend fun getPost() : Response<CountryData>{
+    return RetrofitInstance.api.getPost()
+    }
 }

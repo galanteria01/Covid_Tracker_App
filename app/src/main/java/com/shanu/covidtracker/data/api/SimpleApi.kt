@@ -4,8 +4,7 @@ import com.shanu.covidtracker.data.model.CountryData
 import retrofit2.Response
 import retrofit2.http.GET
 
-interface ApiService {
-
+interface SimpleApi {
     @GET("countries")
-    suspend fun getCountries() : CountryData
+    suspend fun getPost() : Response<CountryData>
 }
