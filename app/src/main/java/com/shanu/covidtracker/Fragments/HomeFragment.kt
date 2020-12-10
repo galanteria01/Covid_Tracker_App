@@ -22,7 +22,6 @@ class HomeFragment:Fragment(R.layout.fragment_home){
             if(response2.isSuccessful){
                 Log.d("Responsive",response2.body()!!.dailySummary.toString())
             }
-
         })
     }
 
