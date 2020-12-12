@@ -30,8 +30,8 @@ class ListFragment:Fragment(R.layout.fragment_list){
 
         viewModel.myResponseData.observe(this, Observer { response ->
             if(response.isSuccessful) {
-                Log.d("Responsive", response.body()!!.countries[0].name.toString())
-                adapter = Adapter(context!!,response.body()!!.countries)
+                Log.d("Gay", response.body()!!.countries[0].name.toString())
+                adapter = Adapter(this,context!!,response.body()!!.countries,viewModel)
                 recyclerView.adapter = adapter
 
 

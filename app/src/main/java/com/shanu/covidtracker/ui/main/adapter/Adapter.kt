@@ -6,13 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.shanu.covidtracker.Activity.CountryView
 
 import com.shanu.covidtracker.R
 import com.shanu.covidtracker.data.model.CountryData
+import com.shanu.covidtracker.data.model.MainViewModel
 
-class Adapter(private val context: Context, private val listOfCountries:List<CountryData.Country>): RecyclerView.Adapter<Adapter.ViewHolder>() {
+class Adapter(private val owner:LifecycleOwner,private val context: Context, private val listOfCountries:List<CountryData.Country>,private val viewModel: MainViewModel): RecyclerView.Adapter<Adapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var view = LayoutInflater.from(parent.context).inflate(R.layout.card_ticket,parent,false)
         return ViewHolder(view)
@@ -21,10 +24,21 @@ class Adapter(private val context: Context, private val listOfCountries:List<Cou
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.setOnClickListener {
             val country = listOfCountries[position]
+            val name = country.name.toString()
 
-            var intent = Intent(context,CountryView::class.java)
-            intent.putExtra("name",country.name)
-            context.startActivity(intent)
+            viewModel.getCountryData(name)
+            viewModel.myResponseCountry.observe(owner, Observer { response3 ->
+                if(response3.isSuccessful){
+                    var intent = Intent(context,CountryView::class.java)
+
+                    intent.putExtra("name",response3.body()!!.confirmed.value.toString())
+                    context.startActivity(intent)
+                }
+
+            }
+            )
+
+
 
         }
         return holder.bind(listOfCountries[position])

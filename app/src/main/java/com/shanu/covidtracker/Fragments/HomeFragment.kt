@@ -21,14 +21,21 @@ class HomeFragment:Fragment(R.layout.fragment_home){
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this,viewModelFactory).get(MainViewModel::class.java)
+        viewModel.getGlobal()
         viewModel.myResponseGlobal.observe(this, Observer {response2 ->
             if(response2.isSuccessful){
-                Log.d("Responsive",response2.body()!!.dailySummary.toString())
-                tvCountryName.text = response2!!.body()!!.confirmed.toString()
-                tvTotalCases.text = response2.body()!!.recovered.toString()
+                Log.d("Gay",response2.body()!!.toString())
+
+                tvTotalCases.text = response2.body()!!.confirmed.value.toString()
+                recoveredGlobal.text = response2.body()!!.recovered.value.toString()
+                deathGlobal.text = response2.body()!!.deaths.value.toString()
             }
         })
 
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
 
 }
