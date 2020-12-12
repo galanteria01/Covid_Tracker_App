@@ -50,10 +50,9 @@ class Adapter(private val owner:LifecycleOwner,private val context: Context, pri
 
     class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
         var countryName = itemView.findViewById<TextView>(R.id.countryName)
-        var activeCases = itemView.findViewById<TextView>(R.id.activeCases)
         fun bind(country: CountryData.Country){
             countryName.text = country.name
-            activeCases.text = country.iso2
+
         }
 
     }
