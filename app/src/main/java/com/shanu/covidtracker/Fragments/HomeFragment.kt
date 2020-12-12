@@ -1,5 +1,6 @@
 package com.shanu.covidtracker.Fragments
 
+import GlobalData
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,9 +11,11 @@ import com.shanu.covidtracker.R
 import com.shanu.covidtracker.data.model.MainViewModel
 import com.shanu.covidtracker.data.model.MainViewModelFactory
 import com.shanu.covidtracker.data.repository.Repository
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment:Fragment(R.layout.fragment_home){
     private lateinit var viewModel: MainViewModel
+    var globalData:GlobalData?=null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val repository = Repository()
@@ -21,8 +24,11 @@ class HomeFragment:Fragment(R.layout.fragment_home){
         viewModel.myResponseGlobal.observe(this, Observer {response2 ->
             if(response2.isSuccessful){
                 Log.d("Responsive",response2.body()!!.dailySummary.toString())
+                tvCountryName.text = response2!!.body()!!.confirmed.toString()
+                tvTotalCases.text = response2.body()!!.recovered.toString()
             }
         })
+
     }
 
 }

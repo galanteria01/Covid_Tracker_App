@@ -1,5 +1,6 @@
 package com.shanu.covidtracker.data.model
 
+import CountryWiseData
 import GlobalData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,6 +13,8 @@ class MainViewModel(private val repository: Repository):ViewModel() {
 
     val myResponseData:MutableLiveData<Response<CountryData>> = MutableLiveData()
     val myResponseGlobal:MutableLiveData<Response<GlobalData>> = MutableLiveData()
+    val myResponseCountry:MutableLiveData<Response<CountryWiseData>> = MutableLiveData()
+
 
     fun getPost(){
         viewModelScope.launch{
@@ -24,6 +27,15 @@ class MainViewModel(private val repository: Repository):ViewModel() {
         viewModelScope.launch{
             val response2 = repository.getGlobal()
             myResponseGlobal.value = response2
+        }
+    }
+
+    fun getCountryData(country:String){
+        viewModelScope.launch{
+            val response3 = repository.getCountryData(country)
+            myResponseCountry.value = response3
+
+
         }
     }
 

@@ -1,21 +1,32 @@
 package com.shanu.covidtracker.ui.main.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.shanu.covidtracker.Activity.CountryView
 
 import com.shanu.covidtracker.R
 import com.shanu.covidtracker.data.model.CountryData
 
-class Adapter(private val listOfCountries:List<CountryData.Country>): RecyclerView.Adapter<Adapter.ViewHolder>() {
+class Adapter(private val context: Context, private val listOfCountries:List<CountryData.Country>): RecyclerView.Adapter<Adapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var view = LayoutInflater.from(parent.context).inflate(R.layout.card_ticket,parent,false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.itemView.setOnClickListener {
+            val country = listOfCountries[position]
+
+            var intent = Intent(context,CountryView::class.java)
+            intent.putExtra("name",country.name)
+            context.startActivity(intent)
+
+        }
         return holder.bind(listOfCountries[position])
     }
 
@@ -30,6 +41,7 @@ class Adapter(private val listOfCountries:List<CountryData.Country>): RecyclerVi
             countryName.text = country.name
             activeCases.text = country.iso2
         }
+
     }
 
 }

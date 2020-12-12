@@ -1,5 +1,6 @@
 package com.shanu.covidtracker.data.repository
 
+import CountryWiseData
 import GlobalData
 import com.shanu.covidtracker.data.api.RetrofitInstance
 import com.shanu.covidtracker.data.model.CountryData
@@ -11,5 +12,8 @@ class Repository {
     }
     suspend fun getGlobal(): Response<GlobalData>{
         return RetrofitInstance.api.getGlobal()
+    }
+    suspend fun getCountryData(country:String):Response<CountryWiseData>{
+        return RetrofitInstance.api.getCountryData(country)
     }
 }
