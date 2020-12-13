@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.shanu.covidtracker.Activity.Contact
 import com.shanu.covidtracker.Activity.Login
+import com.shanu.covidtracker.Activity.Setting
 import com.shanu.covidtracker.R
 import kotlinx.android.synthetic.main.fragment_more.*
 
@@ -26,6 +27,10 @@ class MoreFragment:Fragment(R.layout.fragment_more){
         ContactCard.setOnClickListener {
             gotoContactUs()
         }
+
+        SettingCard.setOnClickListener {
+            gotoSetting()
+        }
     }
 
     fun gotoLogin(){
@@ -36,6 +41,11 @@ class MoreFragment:Fragment(R.layout.fragment_more){
 
     fun gotoContactUs(){
         val intent = Intent(context, Contact::class.java)
+        context!!.startActivity(intent)
+    }
+
+    fun gotoSetting(){
+        val intent = Intent(context,Setting::class.java)
         context!!.startActivity(intent)
     }
 }

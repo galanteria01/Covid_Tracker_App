@@ -17,7 +17,7 @@ import com.shanu.covidtracker.R
 import com.shanu.covidtracker.data.model.CountryData
 import com.shanu.covidtracker.data.model.MainViewModel
 
-class Adapter(private val owner:LifecycleOwner, private val context: Context, private var listOfCountries:List<CountryData.Country>, private val viewModel: MainViewModel): RecyclerView.Adapter<Adapter.ViewHolder>() {
+class Adapter(private val owner:LifecycleOwner, private val context: Context, private var listOfCountries:List<CountryData.Country>, private val viewModel: MainViewModel,private val cellClickListener: CellClickListener): RecyclerView.Adapter<Adapter.ViewHolder>() {
     var countryDataScoped:CountryWiseData?=null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var view = LayoutInflater.from(parent.context).inflate(R.layout.card_ticket,parent,false)
@@ -25,28 +25,29 @@ class Adapter(private val owner:LifecycleOwner, private val context: Context, pr
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
         holder.itemView.setOnClickListener {
-            val country = listOfCountries[position]
-            val name = country.name.toString()
-            viewModel.getCountryData(name)
-            viewModel.myResponseCountry.observe(owner, Observer { response3 ->
-                if(response3.isSuccessful){
-                    var intent = Intent(context,CountryView::class.java)
-                    intent.putExtra("name",name)
-                    Log.d("Intent","Created intent")
-                    intent.putExtra("confirmed",response3.body()!!.confirmed.value.toString())
-                    intent.putExtra("recovered",response3.body()!!.recovered.value.toString())
-                    intent.putExtra("death",response3.body()!!.deaths.value.toString())
-                    intent.putExtra("lastUpdate",response3.body()!!.lastUpdate.toString())
-                    context.startActivity(intent)
-                }
-
-            }
-            )
-
-
-
+            cellClickListener.onCellClickListener(listOfCountries[position])
         }
+//        holder.itemView.setOnClickListener {
+//            val country = listOfCountries[position]
+//            val name = country.name.toString()
+//            viewModel.getCountryData(name)
+//            viewModel.myResponseCountry.observe(owner, Observer { response3 ->
+//                if(response3.isSuccessful){
+//                    var intent = Intent(context,CountryView::class.java)
+//                    intent.putExtra("name",name)
+//                    Log.d("Intent","Created intent")
+//                    intent.putExtra("confirmed",response3.body()!!.confirmed.value.toString())
+//                    intent.putExtra("recovered",response3.body()!!.recovered.value.toString())
+//                    intent.putExtra("death",response3.body()!!.deaths.value.toString())
+//                    intent.putExtra("lastUpdate",response3.body()!!.lastUpdate.toString())
+//                    context.startActivity(intent)
+//                }
+//
+//            }
+//            )
+//        }
         return holder.bind(listOfCountries[position])
     }
 
@@ -66,5 +67,10 @@ class Adapter(private val owner:LifecycleOwner, private val context: Context, pr
         listOfCountries = newList
         notifyDataSetChanged()
     }
+
+    interface CellClickListener{
+        fun onCellClickListener(data:CountryData.Country)
+    }
+
 
 }
