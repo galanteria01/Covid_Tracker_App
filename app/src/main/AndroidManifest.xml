@@ -11,9 +11,13 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+
         android:supportsRtl="true"
         android:theme="@style/Theme.CovidTracker">
-        <activity android:name=".Activity.CountryView"></activity>
+        <activity android:name=".Activity.CountryView"
+            android:noHistory="true">
+
+        </activity>
         <activity android:name=".Activity.Contact" />
         <activity android:name=".Activity.Login">
             <intent-filter>

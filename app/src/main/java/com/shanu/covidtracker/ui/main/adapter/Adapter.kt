@@ -1,5 +1,6 @@
 package com.shanu.covidtracker.ui.main.adapter
 
+import CountryWiseData
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -15,7 +16,8 @@ import com.shanu.covidtracker.R
 import com.shanu.covidtracker.data.model.CountryData
 import com.shanu.covidtracker.data.model.MainViewModel
 
-class Adapter(private val owner:LifecycleOwner,private val context: Context, private val listOfCountries:List<CountryData.Country>,private val viewModel: MainViewModel): RecyclerView.Adapter<Adapter.ViewHolder>() {
+class Adapter(private val owner:LifecycleOwner, private val context: Context, private var listOfCountries:List<CountryData.Country>, private val viewModel: MainViewModel): RecyclerView.Adapter<Adapter.ViewHolder>() {
+    var countryDataScoped:CountryWiseData?=null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var view = LayoutInflater.from(parent.context).inflate(R.layout.card_ticket,parent,false)
         return ViewHolder(view)
@@ -25,13 +27,15 @@ class Adapter(private val owner:LifecycleOwner,private val context: Context, pri
         holder.itemView.setOnClickListener {
             val country = listOfCountries[position]
             val name = country.name.toString()
-
             viewModel.getCountryData(name)
             viewModel.myResponseCountry.observe(owner, Observer { response3 ->
                 if(response3.isSuccessful){
                     var intent = Intent(context,CountryView::class.java)
-
-                    intent.putExtra("name",response3.body()!!.confirmed.value.toString())
+                    intent.putExtra("name",name)
+                    intent.putExtra("confirmed",response3.body()!!.confirmed.value.toString())
+                    intent.putExtra("recovered",response3.body()!!.recovered.value.toString())
+                    intent.putExtra("death",response3.body()!!.deaths.value.toString())
+                    intent.putExtra("lastUpdate",response3.body()!!.lastUpdate.toString())
                     context.startActivity(intent)
                 }
 
@@ -48,13 +52,17 @@ class Adapter(private val owner:LifecycleOwner,private val context: Context, pri
         return listOfCountries.size
     }
 
-    class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
         var countryName = itemView.findViewById<TextView>(R.id.countryName)
         fun bind(country: CountryData.Country){
             countryName.text = country.name
 
         }
 
+    }
+    fun setData(newList:List<CountryData.Country>){
+        listOfCountries = newList
+        notifyDataSetChanged()
     }
 
 }
