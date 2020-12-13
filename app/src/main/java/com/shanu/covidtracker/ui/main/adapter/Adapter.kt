@@ -3,6 +3,7 @@ package com.shanu.covidtracker.ui.main.adapter
 import CountryWiseData
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,7 @@ class Adapter(private val owner:LifecycleOwner, private val context: Context, pr
                 if(response3.isSuccessful){
                     var intent = Intent(context,CountryView::class.java)
                     intent.putExtra("name",name)
+                    Log.d("Intent","Created intent")
                     intent.putExtra("confirmed",response3.body()!!.confirmed.value.toString())
                     intent.putExtra("recovered",response3.body()!!.recovered.value.toString())
                     intent.putExtra("death",response3.body()!!.deaths.value.toString())

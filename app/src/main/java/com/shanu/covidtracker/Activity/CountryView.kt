@@ -1,9 +1,11 @@
 package com.shanu.covidtracker.Activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.shanu.covidtracker.Fragments.ListFragment
 import com.shanu.covidtracker.R
 import kotlinx.android.synthetic.main.activity_country_view.*
 
@@ -17,6 +19,10 @@ class CountryView : AppCompatActivity() {
         recoveredCaseCount.text = data.getString("recovered").toString()
         deathCaseCount.text = data.getString("death").toString()
         lastUpdateCount.text = data.getString("lastUpdate").toString()
+
+        imageButton.setOnClickListener{
+            finish()
+        }
     }
 
     override fun onDestroy() {

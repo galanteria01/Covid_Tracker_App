@@ -32,6 +32,7 @@ class ListFragment:Fragment(R.layout.fragment_list){
             if(response.isSuccessful) {
                 Log.d("Gay", response.body()!!.countries[0].name.toString())
                 adapter = Adapter(this,context!!,response.body()!!.countries,viewModel)
+
                 recyclerView.adapter = adapter
 
 
