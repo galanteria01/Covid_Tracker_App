@@ -27,8 +27,8 @@ class HomeFragment:Fragment(R.layout.fragment_home){
                 Log.d("Gay",response2.body()!!.toString())
 
                 tvTotalCases.text = response2.body()!!.confirmed.value.toString()
-                recoveredGlobal.text = response2.body()!!.recovered.value.toString()
-                deathGlobal.text = response2.body()!!.deaths.value.toString()
+                recoveredGlobalText.text = response2.body()!!.recovered.value.toString()
+                deathGlobalText.text = response2.body()!!.deaths.value.toString()
             }
         })
 
