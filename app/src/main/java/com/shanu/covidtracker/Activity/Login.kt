@@ -32,36 +32,54 @@ class Login : AppCompatActivity() {
         }
     }
 
-    fun signupWithDetails(email:String,password:String){
-        mAuth!!.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this){
-            task ->
-            if(task.isSuccessful){
-                val user = mAuth!!.currentUser
-                updateUI(user)
+    private fun signupWithDetails(email:String, password:String){
+        if(email.isNotEmpty() && password.isNotEmpty()) {
+            mAuth!!.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        val user = mAuth!!.currentUser
+                        updateUI(user)
 
-            }else{
-                Toast.makeText(baseContext, "Authentication failed.",
-                    Toast.LENGTH_SHORT).show()
-            }
+                    } else {
+                        Toast.makeText(
+                            baseContext, "Authentication failed.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+        }else{
+            Toast.makeText(
+                baseContext, "Complete the credentials",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
-    fun loginWithDetails(email:String,password: String){
-        mAuth!!.signInWithEmailAndPassword(email,password).addOnCompleteListener(this){
-            task ->
-            if(task.isSuccessful){
-                val user = mAuth!!.currentUser
-                updateUI(user)
+    private fun loginWithDetails(email:String, password: String){
+        if(email.isNotEmpty() && password.isNotEmpty()) {
+            mAuth!!.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        val user = mAuth!!.currentUser
+                        updateUI(user)
 
 
-            }else{
-                Toast.makeText(baseContext, "Authentication failed.",
-                    Toast.LENGTH_SHORT).show()
-            }
+                    } else {
+                        Toast.makeText(
+                            baseContext, "Authentication failed.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+        }else{
+            Toast.makeText(
+                baseContext, "Complete the credentials",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
-    fun updateUI(user:FirebaseUser?){
+    private fun updateUI(user:FirebaseUser?){
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra("user",user)
         startActivity(intent)

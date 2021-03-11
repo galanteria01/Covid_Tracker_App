@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment:Fragment(R.layout.fragment_home){
     private lateinit var viewModel: MainViewModel
-    var globalData:GlobalData?=null
+//    var globalData:GlobalData?=null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val repository = Repository()
@@ -24,11 +24,9 @@ class HomeFragment:Fragment(R.layout.fragment_home){
         viewModel.getGlobal()
         viewModel.myResponseGlobal.observe(this, Observer {response2 ->
             if(response2.isSuccessful){
-                Log.d("Gay",response2.body()!!.toString())
-
                 tvTotalCases.text = response2.body()!!.confirmed.value.toString()
-                recoveredGlobalText.text = response2.body()!!.recovered.value.toString()
-                deathGlobalText.text = response2.body()!!.deaths.value.toString()
+                recoveredGlobal.text = response2.body()!!.recovered.value.toString()
+                deathGlobal.text = response2.body()!!.deaths.value.toString()
             }
         })
 

@@ -38,12 +38,8 @@ class ListFragment:Fragment(R.layout.fragment_list),Adapter.CellClickListener{
                 adapter = Adapter(this,context!!,response.body()!!.countries,viewModel,this)
 
                 recyclerView.adapter = adapter
-
-
             }
         })
-
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +53,7 @@ class ListFragment:Fragment(R.layout.fragment_list),Adapter.CellClickListener{
             viewModel.myResponseCountry.observe(this, Observer { response3 ->
                 if (response3.isSuccessful) {
                     var intent = Intent(context, CountryView::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY;
                     intent.putExtra("name", name)
                     Log.d("Intent", "Created intent")
                     intent.putExtra("confirmed", response3.body()!!.confirmed.value.toString())
@@ -64,6 +61,7 @@ class ListFragment:Fragment(R.layout.fragment_list),Adapter.CellClickListener{
                     intent.putExtra("death", response3.body()!!.deaths.value.toString())
                     intent.putExtra("lastUpdate", response3.body()!!.lastUpdate.toString())
                     context!!.startActivity(intent)
+
                 }
 
 
