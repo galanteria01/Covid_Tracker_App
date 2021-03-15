@@ -13,6 +13,7 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.CovidTracker">
+        <activity android:name=".Activity.Signup"></activity>
         <activity android:name=".Activity.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,9 +26,7 @@
             android:name=".Activity.CountryView"
             android:noHistory="true" />
         <activity android:name=".Activity.Contact" />
-        <activity android:name=".Activity.Login">
-
-        </activity>
+        <activity android:name=".Activity.Login"></activity>
         <activity android:name=".Activity.MainActivity" />
 
         <meta-data

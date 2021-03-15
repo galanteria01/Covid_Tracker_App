@@ -35,15 +35,16 @@ class ListFragment:Fragment(R.layout.fragment_list),Adapter.CellClickListener{
         viewModel.myResponseData.observe(this, Observer { response ->
             if(response.isSuccessful) {
                 Log.d("Gay", response.body()!!.countries[0].name.toString())
-                adapter = Adapter(this,context!!,response.body()!!.countries,viewModel,this)
+                adapter = Adapter(
+                    this,context!!,
+                    response.body()!!.countries,
+                    viewModel,
+                    this
+                )
 
                 recyclerView.adapter = adapter
             }
         })
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onCellClickListener(data:CountryData.Country) {
@@ -64,10 +65,8 @@ class ListFragment:Fragment(R.layout.fragment_list),Adapter.CellClickListener{
 
                 }
 
-
-
-
-            })
+            }
+            )
     }
 
 

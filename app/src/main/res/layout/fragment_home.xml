@@ -62,7 +62,7 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardRecoveredCases"
-            android:layout_width="145dp"
+            android:layout_width="150dp"
             android:layout_height="111dp"
             android:layout_marginTop="64dp"
             android:layout_marginEnd="36dp"
@@ -104,8 +104,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardDeathCases"
-            android:layout_width="145dp"
-            android:layout_height="112dp"
+            android:layout_width="150dp"
+            android:layout_height="111dp"
             android:layout_marginStart="36dp"
             android:layout_marginTop="64dp"
             android:background="#FF4D4D"

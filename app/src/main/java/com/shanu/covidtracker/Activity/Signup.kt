@@ -1,9 +1,10 @@
 package com.shanu.covidtracker.Activity
 
-import android.content.Intent
-import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.content.Intent
+import android.util.Log
+import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
@@ -11,19 +12,19 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.shanu.covidtracker.R
-import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_signup.*
 
 
-class Login : AppCompatActivity() {
+class Signup : AppCompatActivity() {
     private var mAuth: FirebaseAuth? = null
     private lateinit var googleSignInClient:GoogleSignInClient
     private val RC_SIGN_IN = 1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_signup)
         mAuth = FirebaseAuth.getInstance()
-        loginButton.setOnClickListener {
+        signUpButton.setOnClickListener {
             signupWithDetails(textEmail.text.toString(),textPassword.text.toString())
         }
         sign_in_button.setOnClickListener {
@@ -47,15 +48,13 @@ class Login : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
-                // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
-                // Google Sign In failed, update UI appropriately
+                Log.d("Covid",e.message.toString())
             }
         }
     }
@@ -67,30 +66,6 @@ class Login : AppCompatActivity() {
                     if (task.isSuccessful) {
                         val user = mAuth!!.currentUser
                         updateUI(user)
-
-                    } else {
-                        Toast.makeText(
-                            baseContext, "Authentication failed.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-        }else{
-            Toast.makeText(
-                baseContext, "Complete the credentials",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
-
-    private fun loginWithDetails(email:String, password: String){
-        if(email.isNotEmpty() && password.isNotEmpty()) {
-            mAuth!!.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        val user = mAuth!!.currentUser
-                        updateUI(user)
-
 
                     } else {
                         Toast.makeText(
